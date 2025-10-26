@@ -2,18 +2,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
-  background-color: #f8f9fc;
+  height: 100vh; 
+  width: 100vw; 
+  background-color: #b3ff00; 
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 999; 
+  
+  background-image: url("../assets/images/desocupemasivo.png");
+  background-size: cover;       /* que cubra toda la pantalla */
+  background-position: center;  /* centrada */
+  background-repeat: no-repeat; /* sin repetirse */
+  min-height: 100vh;
 }
 
 .login-card {
-  background-color: white;
+  background-color: #fff;
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 400px;
 }
+
 
 .login-title {
   text-align: center;

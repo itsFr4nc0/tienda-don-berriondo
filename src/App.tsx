@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ChatbotButton } from "./components/ChatbotButton";
@@ -9,9 +9,16 @@ import { Register } from "./pages/Register";
 import "./assets/styles/global.css";
 
 const App: React.FC = () => {
+  const location = useLocation();
+
+  
+  const hideLayout =
+    location.pathname === "/login" || location.pathname === "/register";
+
   return (
     <div className="app-container">
-      <Header />
+      
+      {!hideLayout && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -19,8 +26,13 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
       </Routes>
 
-      <Footer />
-      <ChatbotButton />
+    
+      {!hideLayout && (
+        <>
+          <Footer />
+          <ChatbotButton />
+        </>
+      )}
     </div>
   );
 };

@@ -1,10 +1,22 @@
 .register-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 80vh;
-  background-color: #f8f9fc;
+  align-items: flex-start; 
+  min-height: 100vh; 
+  width: 100%;
+  background-color: #b3ff00; 
+  position: relative; 
+  z-index: 999; 
+  padding: 2rem 0; 
+  overflow-y: auto; 
+
+  background-image: url("../assets/images/desocupemasivo2.png");
+  background-size: cover;       /* que cubra toda la pantalla */
+  background-position: center;  /* centrada */
+  background-repeat: no-repeat; /* sin repetirse */
+  min-height: 100vh;
 }
+
 
 .register-card {
   background-color: white;
