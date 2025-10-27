@@ -6,18 +6,19 @@ import { ChatbotButton } from "./components/ChatbotButton";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import "./assets/styles/global.css";
+import "./assets/styles/global.css"
+import OpinionesClientes from './components/OpinionesClientes'
 
 const App: React.FC = () => {
   const location = useLocation();
 
-  
+
   const hideLayout =
     location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <div className="app-container">
-      
+
       {!hideLayout && <Header />}
 
       <Routes>
@@ -26,9 +27,10 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
       </Routes>
 
-    
+
       {!hideLayout && (
         <>
+          <OpinionesClientes />
           <Footer />
           <ChatbotButton />
         </>
