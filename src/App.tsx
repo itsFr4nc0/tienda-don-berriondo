@@ -6,37 +6,36 @@ import { ChatbotButton } from "./components/ChatbotButton";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import "./assets/styles/global.css"
-import OpinionesClientes from './components/OpinionesClientes'
+import "./assets/styles/global.css";
+import OpinionesClientes from "./components/OpinionesClientes";
+import Productos from "./components/TarjetasProductos.tsx";
 
 const App: React.FC = () => {
-  const location = useLocation();
+    const location = useLocation();
 
+    const hideLayout =
+        location.pathname === "/login" || location.pathname === "/register";
 
-  const hideLayout =
-    location.pathname === "/login" || location.pathname === "/register";
+    return (
+        <div className="app-container">
+            {!hideLayout && <Header />}
 
-  return (
-    <div className="app-container">
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+            </Routes>
 
-      {!hideLayout && <Header />}
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-
-
-      {!hideLayout && (
-        <>
-          <OpinionesClientes />
-          <Footer />
-          <ChatbotButton />
-        </>
-      )}
-    </div>
-  );
+            {!hideLayout && (
+                <>
+                    <Productos />
+                    <OpinionesClientes />
+                    <Footer />
+                    <ChatbotButton />
+                </>
+            )}
+        </div>
+    );
 };
 
 export default App;
