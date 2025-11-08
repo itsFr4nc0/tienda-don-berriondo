@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './OpinionesClientes.css';
 
 interface Opinion {
@@ -31,19 +31,79 @@ const OpinionesClientes: React.FC = () => {
         }
     ];
 
+    // Estado para controlar qué opinión se muestra
+    const [indiceActual, setIndiceActual] = useState(0);
+
+    // Función para ir a la opinión anterior
+    const anteriorOpinion = () => {
+        setIndiceActual((prevIndice) =>
+            prevIndice === 0 ? opiniones.length - 1 : prevIndice - 1
+        );
+    };
+
+    // Función para ir a la siguiente opinión
+    const siguienteOpinion = () => {
+        setIndiceActual((prevIndice) =>
+            prevIndice === opiniones.length - 1 ? 0 : prevIndice + 1
+        );
+    };
+
     const renderEstrellas = (cantidad: number) => {
         return '⭐'.repeat(cantidad);
     };
 
     return (
         <div className="opiniones-banda">
-            <div className="opiniones-container">
-                {opiniones.map((opinion, index) => (
-                    <div key={index} className="opinion-card">
-                        <div className="estrellas">{renderEstrellas(opinion.estrellas)}</div>
-                        <p className="comentario">"{opinion.comentario}"</p>
-                        <p className="nombre">- {opinion.nombre}</p>
+            <h2 className="opiniones-titulo">
+                 Lo que comentan nuestros compradores avispados
+            </h2>
+            <div className="opiniones-wrapper">
+                {/* Flecha izquierda */}
+                <button
+                    className="flecha flecha-izquierda"
+                    onClick={anteriorOpinion}
+                    aria-label="Opinión anterior"
+                >
+                    ‹
+                </button>
+
+                {/* Contenedor de opiniones */}
+                <div className="opiniones-container">
+                    <div
+                        className="opinion-card"
+                        key={indiceActual}
+                    >
+                        <div className="estrellas">
+                            {renderEstrellas(opiniones[indiceActual].estrellas)}
+                        </div>
+                        <p className="comentario">
+                            "{opiniones[indiceActual].comentario}"
+                        </p>
+                        <p className="nombre">
+                            - {opiniones[indiceActual].nombre}
+                        </p>
                     </div>
+                </div>
+
+                {/* Flecha derecha */}
+                <button
+                    className="flecha flecha-derecha"
+                    onClick={siguienteOpinion}
+                    aria-label="Opinión siguiente"
+                >
+                    ›
+                </button>
+            </div>
+
+            {/* Indicadores de puntos */}
+            <div className="indicadores">
+                {opiniones.map((_, index) => (
+                    <button
+                        key={index}
+                        className={`indicador ${index === indiceActual ? 'activo' : ''}`}
+                        onClick={() => setIndiceActual(index)}
+                        aria-label={`Ir a opinión ${index + 1}`}
+                    />
                 ))}
             </div>
         </div>
