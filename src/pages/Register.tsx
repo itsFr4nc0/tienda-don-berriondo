@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./register.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,8 @@ export const Register: React.FC = () => {
     gender: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -26,7 +30,29 @@ export const Register: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Datos de registro:", formData);
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const userExists = users.some((u: any) => u.email === formData.email);
+
+    if (userExists) {
+      toast.warn("El correo ya está registrado", {
+        position: "top-right",
+        autoClose: 2500,
+        theme: "colored",
+      });
+      return;
+    }
+
+    users.push(formData);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    toast.success("Registro exitoso", {
+      position: "top-right",
+      autoClose: 2000,
+      theme: "colored",
+    });
+
+    setTimeout(() => navigate("/login"), 2000);
   };
 
   return (
@@ -135,6 +161,9 @@ export const Register: React.FC = () => {
           </Link>
         </p>
       </div>
+
+      {/* Contenedor de notificaciones */}
+      <ToastContainer />
     </div>
   );
 };

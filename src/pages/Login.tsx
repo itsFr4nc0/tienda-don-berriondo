@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -9,8 +11,27 @@ export const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Datos de inicio de sesión:", { email, password });
-    navigate("/");
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find(
+      (u: any) => u.email === email && u.password === password
+    );
+
+    if (user) {
+      localStorage.setItem("loggedUser", JSON.stringify(user));
+      toast.success(`Bienvenido a la mejor tienda ${user.name}`, {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "colored",
+      });
+      setTimeout(() => navigate("/"), 2000);
+    } else {
+      toast.error("Correo o contraseña incorrectos", {
+        position: "top-right",
+        autoClose: 2500,
+        theme: "colored",
+      });
+    }
   };
 
   return (
@@ -49,6 +70,9 @@ export const Login: React.FC = () => {
           </Link>
         </p>
       </div>
+
+      {/* Contenedor de notificaciones */}
+      <ToastContainer />
     </div>
   );
 };

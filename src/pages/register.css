@@ -11,9 +11,9 @@
   overflow-y: auto; 
 
   background-image: url("../assets/images/desocupemasivo2.png");
-  background-size: cover;       /* que cubra toda la pantalla */
-  background-position: center;  /* centrada */
-  background-repeat: no-repeat; /* sin repetirse */
+  background-size: cover;     
+  background-position: center;  
+  background-repeat: no-repeat; 
   min-height: 100vh;
 }
 

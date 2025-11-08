@@ -236,3 +236,25 @@ body {
     bottom: 2rem;
   }
 }
+
+.icon {
+  width: 28px;
+  height: 28px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.user-dropdown button:hover {
+  opacity: 0.85;
+}
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background-color: #4caf50;
+}
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background-color: #e53935;
+}
+.Toastify__toast-theme--colored.Toastify__toast--warn {
+  background-color: #ff9800;
+}
