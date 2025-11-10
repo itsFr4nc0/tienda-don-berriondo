@@ -495,3 +495,37 @@ body {
 .checkout-btn:active {
     transform: translateY(0);
 }
+/* Estilos para la sección de datos del usuario */
+.user-info-section {
+    padding: 1rem;
+    margin: 1rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+}
+
+.user-info-section h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.user-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.user-info-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-info-details strong {
+    font-weight: 600;
+}

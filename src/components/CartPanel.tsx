@@ -20,6 +20,10 @@ export const CartPanel: React.FC<CartPanelProps> = ({ open, onClose }) => {
     vaciarCarrito,
   } = useCart();
 
+  // Obtener datos del usuario logueado
+  const usuarioLogueadoString = localStorage.getItem('loggedUser');
+  const usuarioLogueado = usuarioLogueadoString ? JSON.parse(usuarioLogueadoString) : null;
+
   // Función para manejar el pago
   const manejarPago = () => {
     console.log("🔍 Iniciando proceso de compra...");
@@ -32,8 +36,7 @@ export const CartPanel: React.FC<CartPanelProps> = ({ open, onClose }) => {
     }
 
     // Verificar si el usuario está logueado
-    const usuarioLogueado = localStorage.getItem('loggedUser');
-    console.log("👤 Usuario en localStorage:", usuarioLogueado);
+    console.log("👤 Usuario en localStorage:", usuarioLogueadoString);
     console.log("👤 ¿Está logueado?", usuarioLogueado !== null);
 
     if (!usuarioLogueado) {
@@ -142,6 +145,18 @@ export const CartPanel: React.FC<CartPanelProps> = ({ open, onClose }) => {
                 </>
             )}
           </div>
+
+          {/* Mostrar datos del usuario si está logueado */}
+          {usuarioLogueado && (
+              <div className="user-info-section">
+                <h3>📋 Datos del usuario</h3>
+                <div className="user-info-details">
+                  <p><strong>👤 Nombre:</strong> {usuarioLogueado.name}</p>
+                  <p><strong>📧 Correo:</strong> {usuarioLogueado.email}</p>
+                  <p><strong>📍 Dirección:</strong> {usuarioLogueado.address || 'No registrada'}</p>
+                </div>
+              </div>
+          )}
 
           {items.length > 0 && (
               <div className="cart-footer">
