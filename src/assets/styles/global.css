@@ -5,9 +5,9 @@
 }
 
 .app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 body {
@@ -67,6 +67,7 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, background-color 0.2s ease;
+    z-index: 999;
 }
 
 .chatbot-btn:hover {
@@ -82,185 +83,237 @@ body {
 /* Carrito de compra */
 
 .cart-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 400px;
-  height: 100%;
-  background-color: #fff;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-  transition: right 0.3s ease;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 400px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
 }
 
 .cart-panel.open {
-  right: 0;
+    right: 0;
 }
 
 .cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
 }
 
 .close-btn {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
 .checkout-btn {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 0.8rem;
-  margin-top: auto;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    margin-top: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
 
 .checkout-btn:hover {
-  background-color: #1e40af;
+    background-color: #1e40af;
 }
 
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
 }
 
+
 @media (max-width: 768px) {
-  .cart-panel {
-    width: 300px;
-  }
+    .cart-panel {
+        width: 85%;
+        max-width: 450px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item-imagen {
+        width: 100%;
+        height: 150px;
+    }
+
+    .header {
+        padding: 1rem;
+    }
+
+    .header-title {
+        font-size: 1.2rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .cart-panel {
+        width: 95%;
+    }
+
+    .cart-item-imagen {
+        height: 120px;
+    }
+
+    .cart-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .cart-item-info h4 {
+        font-size: 0.95rem;
+    }
+
+    .cart-item-precio {
+        font-size: 1rem;
+    }
+
+    .chatbot-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem;
+    }
+
+    .chatbot-btn img {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 /* Chatbot */
 .chat-window {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 320px;
-  height: 420px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 1000;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 320px;
+    height: 420px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
 }
 
 .chat-header {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.8rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .chat-body {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-color: #f4f6fb;
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #f4f6fb;
 }
 
 .chat-bubble {
-  max-width: 80%;
-  padding: 0.6rem 0.9rem;
-  border-radius: 16px;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  word-wrap: break-word;
+    max-width: 80%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 
 .chat-bubble.user {
-  align-self: flex-end;
-  background-color: #dcf8c6; /* verde tipo WhatsApp */
+    align-self: flex-end;
+    background-color: #dcf8c6;
 }
 
 .chat-bubble.bot {
-  align-self: flex-start;
-  background-color: #fff;
-  border: 1px solid #ddd;
+    align-self: flex-start;
+    background-color: #fff;
+    border: 1px solid #ddd;
 }
 
 .chat-input {
-  display: flex;
-  border-top: 1px solid #eee;
+    display: flex;
+    border-top: 1px solid #eee;
 }
 
 .chat-input input {
-  flex: 1;
-  border: none;
-  padding: 0.8rem;
-  outline: none;
-  font-size: 0.9rem;
+    flex: 1;
+    border: none;
+    padding: 0.8rem;
+    outline: none;
+    font-size: 0.9rem;
 }
 
 .chat-input button {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 0.8rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .chat-input button:hover {
-  background-color: #1e40af;
+    background-color: #1e40af;
 }
 
-/* Responsivo */
+/* Responsivo - Chatbot */
 @media (max-width: 450px) {
-  .chat-window {
-    width: 90%;
-    right: 5%;
-    bottom: 2rem;
-  }
+    .chat-window {
+        width: 90%;
+        right: 5%;
+        bottom: 1.5rem;
+        height: 380px;
+    }
 }
 
 .icon {
-  width: 28px;
-  height: 28px;
+    width: 28px;
+    height: 28px;
 }
 
 .clickable {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .user-dropdown button:hover {
-  opacity: 0.85;
+    opacity: 0.85;
 }
 .Toastify__toast-theme--colored.Toastify__toast--success {
-  background-color: #4caf50;
+    background-color: #4caf50;
 }
 .Toastify__toast-theme--colored.Toastify__toast--error {
-  background-color: #e53935;
+    background-color: #e53935;
 }
 .Toastify__toast-theme--colored.Toastify__toast--warn {
-  background-color: #ff9800;
+    background-color: #ff9800;
 }
-/*
-   ESTILOS DEL CART PANEL
-
 
 /* Contenido del carrito */
 .cart-content {
