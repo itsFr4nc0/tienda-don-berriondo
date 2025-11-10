@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ChatbotButton } from "./components/ChatbotButton";
@@ -34,6 +36,20 @@ const App: React.FC = () => {
                     <ChatbotButton />
                 </>
             )}
+
+            {/* Toast Container para las notificaciones */}
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     );
 };

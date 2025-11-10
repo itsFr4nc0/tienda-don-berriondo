@@ -14,7 +14,7 @@ export const Login: React.FC = () => {
 
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(
-      (u: any) => u.email === email && u.password === password
+        (u: any) => u.email === email && u.password === password
     );
 
     if (user) {
@@ -35,44 +35,44 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2 className="login-title">Iniciar Sesión</h2>
+      <div className="login-container">
+        <div className="login-card">
+          <h2 className="login-title">Iniciar Sesión</h2>
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="loginEmail">Correo electrónico:</label>
-          <input
-            id="loginEmail"
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <form className="login-form" onSubmit={handleSubmit}>
+            <label htmlFor="loginEmail">Correo electrónico:</label>
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Correo electrónico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+            />
 
-          <label htmlFor="loginPassword">Contraseña:</label>
-          <input
-            id="loginPassword"
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <label htmlFor="loginPassword">Contraseña:</label>
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+            />
 
-          <button type="submit">Entrar</button>
-        </form>
+            <button type="submit">Entrar</button>
+          </form>
 
-        <p className="login-register-link">
-          ¿No tienes cuenta? no se haga coger tristeza{" "}
-          <Link to="/register" className="link">
-            Regístrate aquí ome
-          </Link>
-        </p>
+          <p className="login-register-link">
+            ¿No tienes cuenta? no se haga coger tristeza{" "}
+            <Link to="/register" className="link">
+              Regístrate aquí ome
+            </Link>
+          </p>
+        </div>
+
+        {/* Contenedor de notificaciones */}
+        <ToastContainer />
       </div>
-
-      {/* Contenedor de notificaciones */}
-      <ToastContainer />
-    </div>
   );
 };
