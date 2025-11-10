@@ -5,29 +5,52 @@ interface Opinion {
     nombre: string;
     comentario: string;
     estrellas: number;
+    producto: string;
 }
 
 const OpinionesClientes: React.FC = () => {
     const opiniones: Opinion[] = [
         {
-            nombre: "María González",
-            comentario: "Excelente calidad de café, el mejor de Medellín. Muy recomendado!",
-            estrellas: 5
+            nombre: "Camila Restrepo",
+            comentario: "La Laptop Gamer superó mis expectativas. Corre todos los juegos en ultra sin problemas y la pantalla es espectacular.",
+            estrellas: 5,
+            producto: "Laptop Gamer"
         },
         {
-            nombre: "Carlos Ramírez",
-            comentario: "El servicio es increíble y el café está fresco siempre.",
-            estrellas: 5
+            nombre: "Andrés López",
+            comentario: "Los Auriculares Bluetooth tienen una calidad de sonido increíble. La batería dura muchísimo, perfecto para el trabajo remoto.",
+            estrellas: 5,
+            producto: "Auriculares Bluetooth"
         },
         {
-            nombre: "Ana Martínez",
-            comentario: "Me encanta la variedad de productos y los precios son justos.",
-            estrellas: 4
+            nombre: "Sofia Martínez",
+            comentario: "El Escritorio Ergonómico cambió mi espacio de trabajo. Amplio, resistente y el diseño le da un toque profesional a mi oficina.",
+            estrellas: 5,
+            producto: "Escritorio Ergonómico"
         },
         {
-            nombre: "Juan Pérez",
-            comentario: "Compro aquí desde hace años, nunca me han fallado.",
-            estrellas: 5
+            nombre: "Diego Hernández",
+            comentario: "El Teclado Mecánico RGB es una joya. Los switches azules suenan perfectos y la iluminación personalizable es genial.",
+            estrellas: 4,
+            producto: "Teclado Mecánico RGB"
+        },
+        {
+            nombre: "Valentina Castro",
+            comentario: "Mi Smartwatch llegó rápido y funciona de maravilla. El monitoreo de salud es muy preciso y las notificaciones son súper útiles.",
+            estrellas: 5,
+            producto: "Smartwatch"
+        },
+        {
+            nombre: "Mateo Ruiz",
+            comentario: "Las Pesas son de excelente calidad. Material resistente y el peso está bien distribuido. Ideal para entrenar en casa.",
+            estrellas: 4,
+            producto: "Pesas"
+        },
+        {
+            nombre: "Isabella Ramírez",
+            comentario: "La Tablet es perfecta para estudiar y ver series. Buena resolución, batería duradera y muy rápida. Totalmente recomendada.",
+            estrellas: 5,
+            producto: "Tablet 10 Pulgadas"
         }
     ];
 
@@ -55,7 +78,7 @@ const OpinionesClientes: React.FC = () => {
     return (
         <div className="opiniones-banda">
             <h2 className="opiniones-titulo">
-                 Lo que comentan nuestros compradores avispados
+                Lo que comentan nuestros compradores avispados
             </h2>
             <div className="opiniones-wrapper">
                 {/* Flecha izquierda */}
@@ -73,6 +96,9 @@ const OpinionesClientes: React.FC = () => {
                         className="opinion-card"
                         key={indiceActual}
                     >
+                        <div className="producto-nombre">
+                            {opiniones[indiceActual].producto}
+                        </div>
                         <div className="estrellas">
                             {renderEstrellas(opiniones[indiceActual].estrellas)}
                         </div>

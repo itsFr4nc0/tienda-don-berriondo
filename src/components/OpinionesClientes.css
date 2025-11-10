@@ -185,3 +185,11 @@
     }
 }
 
+.producto-nombre {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
