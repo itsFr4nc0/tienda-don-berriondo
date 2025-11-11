@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# 🛒 Tienda Desocupe Masivo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Tienda Desocupe Masivo** es una aplicación web desarrollada con **TypeScript, React + Vite, CSS y Node.js**, que emula una tienda en línea con temática inspirada en el popular personaje **Don Berriondo** de *Desocupe Masivo*.  
 
-Currently, two official plugins are available:
+Los usuarios pueden **registrarse, iniciar sesión y simular compras**, aunque no se implementó una pasarela de pagos real.  
+Lo más destacado del proyecto es el **chatbot interactivo de Don Berriondo**, que utiliza inteligencia artificial para responder con el estilo característico y humor paisa del personaje.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Características principales
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- 👤 Registro e inicio de sesión de usuarios.  
+- 🛍️ Simulación de compras (sin pasarela de pago real).  
+- 🤖 Chatbot con personalidad de **Don Berriondo**, alimentado por **OpenAI (modelo GPT-4-mini o similar)**.  
+- ⚙️ Desarrollado con **React + Vite** para el frontend y **Node.js** en el backend.  
+- 💬 Comunicación con la API de OpenAI mediante variables de entorno configurables.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧠 Chatbot de Don Berriondo
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+El chatbot está diseñado para recrear la forma de hablar del personaje **Don Berriondo**, ofreciendo respuestas cómicas, expresivas y muy paisas.  
+Para ello, se conecta a la API de **OpenAI**, utilizando el modelo **GPT-4-mini** (o una variante compatible).  
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+El contexto del personaje se define en el backend, permitiendo que el asistente responda con el tono y estilo de Don Berriondo al interactuar con los usuarios.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Requisitos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Antes de ejecutar el proyecto, asegúrate de tener instalado:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- [Node.js](https://nodejs.org/) (v18 o superior)  
+- [npm](https://www.npmjs.com/)  
+- Una clave válida de la API de [OpenAI](https://platform.openai.com/)
+
+---
+
+## 🚀 Instalación y ejecución en local
+
+1. **Clonar el repositorio**
+
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo
+
+
+2. **Instalar dependencias**
+
+   ```bash
+   npm install
+
+3. **Configurar variable de entorno**
+
+En la raíz del proyecto encontrarás un archivo llamado .env.example.
+Debes crear un nuevo archivo llamado .env y copiar su contenido, completando los valores correspondientes
+
+4. **Ejecutar el proyecto en modo desarrollo**
+
+   ```bash
+   npm run dev
+
+Esto iniciará el servidor y podrás acceder a la aplicación.
