@@ -1,9 +1,9 @@
 # Integrantes
 
--Alejandro Gómez Franco
--Juan Felipe Moreno Ruiz
--Juan Camilo Hurtado Gaviria
--Nicolás Ruiz Blandón
+- Alejandro Gómez Franco
+- Juan Felipe Moreno Ruiz
+- Juan Camilo Hurtado Gaviria
+- Nicolás Ruiz Blandón
 
 # 🛒 Tienda Desocupe Masivo
 
