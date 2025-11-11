@@ -12,15 +12,19 @@ import "./assets/styles/global.css";
 import OpinionesClientes from "./components/OpinionesClientes";
 import Productos from "./components/TarjetasProductos.tsx";
 
+// Definición del Componente Principal de la Aplicación.
 const App: React.FC = () => {
+    // Lógica de Estado y Navegación
     const location = useLocation();
-
+// Determina si la página actual es Login o Register para ocultar el layout principal.
     const hideLayout =
         location.pathname === "/login" || location.pathname === "/register";
-
+//Renderizado Condicional del Layout y Rutas
     return (
         <div className="app-container">
+            {/* Renderiza el Header solo si no estamos en Login o Register. */}
             {!hideLayout && <Header />}
+            {/* Configuración de las Rutas de la Aplicación */}
 
             <Routes>
                 <Route path="/" element={<Home />} />

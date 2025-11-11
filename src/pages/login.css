@@ -1,3 +1,4 @@
+/* Estilos del Contenedor Principal y Fondo */
 .login-container {
   display: flex;
   justify-content: center;
@@ -9,14 +10,14 @@
   top: 0;
   left: 0;
   z-index: 999; 
-  
+  /* Configuración del fondo */
   background-image: url("../assets/images/desocupemasivo.png");
   background-size: cover;     
   background-position: center;  
   background-repeat: no-repeat; 
   min-height: 100vh;
 }
-
+/* Estilos de la Tarjeta de Login  */
 .login-card {
   background-color: #fff;
   padding: 2.5rem;
@@ -26,7 +27,7 @@
   max-width: 400px;
 }
 
-
+/*Estilos del Título */
 .login-title {
   text-align: center;
   font-size: 1.8rem;
@@ -34,7 +35,7 @@
   margin-bottom: 1.5rem;
   color: #1a1a1a;
 }
-
+/*  Estilos de los Campos de Entrada y Botón */
 .login-form input {
   width: 100%;
   padding: 0.9rem;
@@ -60,7 +61,7 @@
 .login-form button:hover {
   background-color: #1e40af;
 }
-
+/* Estilos del Enlace de Registro */
 .login-register-link {
   margin-top: 1rem;
   text-align: center;

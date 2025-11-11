@@ -1,3 +1,10 @@
+# Integrantes
+
+Alejandro Gómez Franco
+Juan Felipe Moreno Ruiz
+Juan Camilo Hurtado Gaviria
+Nicolás Ruiz Blandón
+
 # 🛒 Tienda Desocupe Masivo
 
 **Tienda Desocupe Masivo** es una aplicación web desarrollada con **TypeScript, React + Vite, CSS y Node.js**, que emula una tienda en línea con temática inspirada en el popular personaje **Don Berriondo** de *Desocupe Masivo*.  
