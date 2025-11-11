@@ -44,7 +44,6 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
    git clone https://github.com/tu-usuario/tu-repo.git
    cd tu-repo
 
-
 2. **Instalar dependencias**
 
    ```bash
