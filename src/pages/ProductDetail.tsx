@@ -316,15 +316,21 @@ const ProductDetail: React.FC = () => {
                                 >
                                     −
                                 </motion.button>
-                                <motion.span 
-                                    className="quantity-display"
-                                    key={cantidad}
-                                    initial={{ scale: 1.2 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    {cantidad}
-                                </motion.span>
+                                <motion.input
+                                    type="number"
+                                    min="1"
+                                    value={cantidad}
+                                    onChange={(e) => {
+                                        const valor = parseInt(e.target.value);
+                                        if (valor > 0 && !isNaN(valor)) {
+                                            setCantidad(valor);
+                                        } else if (e.target.value === '') {
+                                            setCantidad(1);
+                                        }
+                                    }}
+                                    className="quantity-input"
+                                    whileFocus={{ scale: 1.05 }}
+                                />
                                 <motion.button 
                                     onClick={aumentarCantidad} 
                                     className="btn-quantity"
