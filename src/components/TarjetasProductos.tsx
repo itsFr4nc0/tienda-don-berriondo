@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import type { Producto } from "../context/CartContext";
 import "./TarjetasProductos.css";
@@ -170,15 +172,21 @@ const categorias = ["Todas", "Hogar", "Papelería", "Tecnología", "Accesorios p
 
 const Productos: React.FC = () => {
     const { agregarAlCarrito } = useCart();
+    const navigate = useNavigate();
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todas");
 
     const productosFiltrados = categoriaSeleccionada === "Todas"
         ? productos
         : productos.filter(p => p.categoria === categoriaSeleccionada);
 
-    const handleAgregarCarrito = (producto: Producto) => {
+    const handleAgregarCarrito = (e: React.MouseEvent, producto: Producto) => {
+        e.stopPropagation();
         agregarAlCarrito(producto);
         console.log(`✅ ${producto.nombre} agregado al carrito`);
+    };
+
+    const handleVerDetalle = (id: number) => {
+        navigate(`/producto/${id}`);
     };
 
     return (
@@ -188,25 +196,51 @@ const Productos: React.FC = () => {
                 <h2 className="filtros-titulo">Filtrar por categoría</h2>
                 <div className="filtros-botones">
                     {categorias.map((cat) => (
-                        <button
+                        <motion.button
                             key={cat}
                             onClick={() => setCategoriaSeleccionada(cat)}
                             className={`boton-categoria ${categoriaSeleccionada === cat ? 'activo' : ''}`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
                             {cat}
-                        </button>
+                        </motion.button>
                     ))}
                 </div>
             </div>
 
-            {/* Productos */}
-            <div className="productos-contenedor">
-                {productosFiltrados.map((producto) => (
-                    <div key={producto.id} className="tarjeta-producto">
-                        <img
+            {/* Productos con animación */}
+            <motion.div 
+                className="productos-contenedor"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                {productosFiltrados.map((producto, index) => (
+                    <motion.div 
+                        key={producto.id} 
+                        className="tarjeta-producto"
+                        onClick={() => handleVerDetalle(producto.id)}
+                        style={{ cursor: 'pointer' }}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ 
+                            duration: 0.5, 
+                            delay: index * 0.05
+                        }}
+                        whileHover={{ 
+                            scale: 1.03,
+                            boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+                            y: -5
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        <motion.img
                             src={producto.imagen}
                             alt={producto.nombre}
                             className="producto-imagen"
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.3 }}
                         />
                         <div className="producto-contenido">
                             <h3 className="producto-nombre">{producto.nombre}</h3>
@@ -215,16 +249,18 @@ const Productos: React.FC = () => {
                             <p className="producto-precio">
                                 ${producto.precio.toLocaleString('es-CO')}
                             </p>
-                            <button
+                            <motion.button
                                 className="btn-agregar-carrito"
-                                onClick={() => handleAgregarCarrito(producto)}
+                                onClick={(e) => handleAgregarCarrito(e, producto)}
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
                             >
                                 🛒 Agregar al carrito
-                            </button>
+                            </motion.button>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 };
