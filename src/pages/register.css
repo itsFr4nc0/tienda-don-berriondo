@@ -101,3 +101,20 @@
     font-size: 1.5rem;
   }
 }
+
+/* Estilos para errores */
+.input-error {
+    border: 2px solid #e74c3c !important;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+select.input-error {
+    border: 2px solid #e74c3c !important;
+}
