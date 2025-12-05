@@ -529,3 +529,78 @@ body {
 .user-info-details strong {
     font-weight: 600;
 }
+
+/* Panel de administración */
+
+.admin-panel {
+    width: 100%;
+    background: #1e293b; /* azul gris oscuro */
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 9999; /* arriba de TODO */
+    border-bottom: 2px solid #0f172a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    font-size: 0.95rem;
+}
+
+/* Logo / Titulo */
+.admin-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-right: auto;
+    letter-spacing: .5px;
+}
+
+/* Botones */
+.admin-btn {
+    border: none;
+    background: #334155;
+    color: white;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.admin-btn:hover {
+    background: #475569;
+    transform: translateY(-1px);
+}
+
+.admin-btn:active {
+    transform: translateY(0px);
+}
+
+/* Botón peligro */
+.admin-btn-danger {
+    background: #dc2626;
+}
+
+.admin-btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .admin-panel {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .admin-btn {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    .admin-title {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}

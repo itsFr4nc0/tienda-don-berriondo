@@ -24,16 +24,34 @@ export const Login: React.FC = () => {
 // Lógica de Autenticación y Respuesta
     if (user) {
       localStorage.setItem("loggedUser", JSON.stringify(user));
-      toast.success(`Bienvenido a la mejor tienda ${user.name}`, {
-        position: "top-right",
-        autoClose: 2000,
-        theme: "colored",
+      if (user.role === "admin") {
+        toast.success(`Bienvenido Administrador  ${user.name}`, {
+          position: "top-right",
+          autoClose: 1500,
+          theme: "colored",
       });
-      setTimeout(() => navigate("/"), 2000);
     } else {
+        toast.success(`Bienvenido a la mejor tienda ${user.name}`, {
+          position: "top-right",
+          autoClose: 1500,
+          theme: "colored",
+        });
+}
+
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+
+
+      //setTimeout(() => navigate("/"), 2000);
+
+
+    } else {
+
       toast.error("Correo o contraseña incorrectos", {
         position: "top-right",
-        autoClose: 2500,
+        autoClose: 2000,
         theme: "colored",
       });
     }
@@ -78,7 +96,7 @@ export const Login: React.FC = () => {
         </div>
 
         {/* Contenedor de notificaciones */}
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
   );
 };

@@ -217,7 +217,10 @@ export const Register: React.FC = () => {
         }
 
         // Si el usuario es nuevo, lo agrega al array de usuarios.
-        users.push(formData);
+        users.push({
+          ...formData,
+          role: "user", // por defecto todos son usuarios normales
+        });
         localStorage.setItem("users", JSON.stringify(users));
 
         // Muestra una notificación de éxito.
