@@ -19,9 +19,9 @@ import Productos from "./components/TarjetasProductos";
 
 import { AdminPanel } from "./pages/AdminPanel";
 
-// -------------------------
-// CREAR ADMIN POR DEFECTO
-// -------------------------
+
+// CREAR ADMIN 
+
 const defaultAdmin = {
   name: "Don Berriondo",
   email: "admin@papa.com",
@@ -41,9 +41,9 @@ if (savedUsers.length === 0) {
   localStorage.setItem("users", JSON.stringify(savedUsers));
 }
 
-// -------------------------
+
 // COMPONENTE PRINCIPAL
-// -------------------------
+
 const App: React.FC = () => {
 
   const location = useLocation();
