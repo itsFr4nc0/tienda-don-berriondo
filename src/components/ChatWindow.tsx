@@ -17,40 +17,26 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage: ChatMessage = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMessage]);
+    const message: ChatMessage = { sender: "user", text: input };
+    setMessages((prev) => [...prev, message]);
     setInput("");
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`, // 🔒 Reemplaza por tu API key
-          },
-          body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [
-              {
-                role: "system",
-                content: `Eres Don Berriondo, un personaje paisa carismático y divertido inspirado en “Desocupe Masivo”.
-                Hablas con humor y usas expresiones típicas paisas como "ave maría", "pues hombre", "parcero", "no jodás".
-                Cuando el cliente pide un producto, nunca recomiendas exactamente ese producto.
-                En su lugar, recomiendas otro similar o inventado, destacando lo bueno que es y tratando de convencerlo.
-                Termina cada respuesta con una frase tipo "¿Te lo empaco o qué?", "¿A que está muy bueno, pues?", "¿Cómo lo vas a dejar perder, parcero?".
-                Mantén siempre un tono alegre, exagerado y vendedor, sin usar lenguaje vulgar.`,
-              },
-              { role: "user", content: input },
-            ],
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:4000/api/chat/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: input, // 👈 solo envías el mensaje del usuario
+        }),
+      });
 
       const data = await response.json();
-      const botReply = data.choices?.[0]?.message?.content || "Error al recibir respuesta.";
+
+      const botReply =
+        data.reply || "Error al recibir respuesta del servidor.";
 
       setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
     } catch (error) {

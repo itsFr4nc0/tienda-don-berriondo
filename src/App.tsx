@@ -19,29 +19,6 @@ import Productos from "./components/TarjetasProductos";
 
 import { AdminPanel } from "./pages/AdminPanel";
 
-
-// CREAR ADMIN 
-
-const defaultAdmin = {
-  name: "Don Berriondo",
-  email: "admin@papa.com",
-  password: "123456@don",
-  city: "Medellín",
-  postalCode: "050001",
-  address: "America",
-  birthDate: "1492-10-12",
-  gender: "otro",
-  role: "admin"
-};
-
-const savedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-
-if (savedUsers.length === 0) {
-  savedUsers.push(defaultAdmin);
-  localStorage.setItem("users", JSON.stringify(savedUsers));
-}
-
-
 // COMPONENTE PRINCIPAL
 
 const App: React.FC = () => {
