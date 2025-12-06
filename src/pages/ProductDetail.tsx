@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion"; // ⬅️ NUEVO
+import { motion } from "framer-motion";
+import { toast } from "react-toastify"; // ⬅️ NUEVO
 import { useCart } from "../context/CartContext";
 import type { Producto } from "../context/CartContext";
 import "./ProductDetail.css";
@@ -196,6 +197,20 @@ const ProductDetail: React.FC = () => {
         for (let i = 0; i < cantidad; i++) {
             agregarAlCarrito(producto);
         }
+        
+        // Mostrar notificación toast
+        toast.success(
+            `✅ ${cantidad > 1 ? `${cantidad}x ` : ''}${producto.nombre} agregado${cantidad > 1 ? 's' : ''} al carrito correctamente`,
+            {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            }
+        );
+        
         console.log(`✅ ${cantidad}x ${producto.nombre} agregado al carrito`);
     };
 
@@ -342,7 +357,7 @@ const ProductDetail: React.FC = () => {
                             </div>
                         </motion.div>
 
-                        {/* Botones de acción */}
+                        {/* Botón de acción */}
                         <motion.div 
                             className="product-actions"
                             initial={{ y: 20, opacity: 0 }}
@@ -356,13 +371,6 @@ const ProductDetail: React.FC = () => {
                                 whileTap={{ scale: 0.95 }}
                             >
                                 🛒 Agregar al carrito
-                            </motion.button>
-                            <motion.button 
-                                className="btn-buy-now"
-                                whileHover={{ scale: 1.05, y: -3 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Comprar ahora
                             </motion.button>
                         </motion.div>
 

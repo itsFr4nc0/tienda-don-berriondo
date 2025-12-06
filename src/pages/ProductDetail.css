@@ -197,7 +197,7 @@
 }
 
 .btn-add-to-cart-large {
-    flex: 1;
+    width: 100%; /* ⬅️ Ahora ocupa todo el ancho */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
@@ -210,26 +210,6 @@
 }
 
 .btn-add-to-cart-large:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-}
-
-.btn-buy-now {
-    flex: 1;
-    background: white;
-    color: #667eea;
-    border: 2px solid #667eea;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-buy-now:hover {
-    background: #667eea;
-    color: white;
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
 }
