@@ -8,15 +8,13 @@ import "./TarjetasProductos.css";
 const categorias = ["Todas", "Hogar", "Papelería", "Tecnología", "Accesorios personales", "Deporte"];
 
 const Productos: React.FC = () => {
-    const { agregarAlCarrito } = useCart();
+    const { agregarAlCarrito, items } = useCart(); // ← usar items, no carrito
     const navigate = useNavigate();
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todas");
 
-    // 🔥 Nuevo: estado para productos desde el backend
     const [productos, setProductos] = useState<Producto[]>([]);
     const [cargando, setCargando] = useState(true);
 
-    // 🔥 Nuevo: obtener productos del backend
     useEffect(() => {
         const fetchProductos = async () => {
             try {
@@ -40,6 +38,16 @@ const Productos: React.FC = () => {
 
     const handleAgregarCarrito = (e: React.MouseEvent, producto: Producto) => {
         e.stopPropagation();
+
+        // Buscar si ya está en el carrito
+        const itemEnCarrito = items.find((item) => item.id === producto.id);
+
+        // 🔥 Validar límite por stock
+        if (itemEnCarrito && itemEnCarrito.cantidad >= producto.stock) {
+            alert("No puedes agregar más unidades, se alcanzó el stock máximo.");
+            return;
+        }
+
         agregarAlCarrito(producto);
     };
 
@@ -76,50 +84,72 @@ const Productos: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                {productosFiltrados.map((producto, index) => (
-                    <motion.div
-                        key={producto.id}
-                        className="tarjeta-producto"
-                        onClick={() => handleVerDetalle(producto.id)}
-                        style={{ cursor: "pointer" }}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                            duration: 0.5,
-                            delay: index * 0.05,
-                        }}
-                        whileHover={{
-                            scale: 1.03,
-                            boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-                            y: -5,
-                        }}
-                        whileTap={{ scale: 0.98 }}
-                    >
-                        <motion.img
-                            src={producto.imagen}
-                            alt={producto.nombre}
-                            className="producto-imagen"
-                            whileHover={{ scale: 1.1 }}
-                            transition={{ duration: 0.3 }}
-                        />
-                        <div className="producto-contenido">
-                            <h3 className="producto-nombre">{producto.nombre}</h3>
-                            <p className="producto-categoria">{producto.categoria}</p>
-                            <p className="producto-descripcion">{producto.descripcion}</p>
-                            <p className="producto-precio">
-                                ${producto.precio.toLocaleString("es-CO")}
-                            </p>
-                            <motion.button
-                                className="btn-agregar-carrito"
-                                onClick={(e) => handleAgregarCarrito(e, producto)}
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                🛒 Agregar al carrito
-                            </motion.button>
-                        </div>
-                    </motion.div>
-                ))}
+                {productosFiltrados.map((producto, index) => {
+                    // Saber cuántos ya lleva en carrito
+                    const itemEnCarrito = items.find((i) => i.id === producto.id);
+                    const cantidadCarrito = itemEnCarrito ? itemEnCarrito.cantidad : 0;
+                    const stockRestante = producto.stock - cantidadCarrito;
+
+                    return (
+                        <motion.div
+                            key={producto.id}
+                            className="tarjeta-producto"
+                            onClick={() => handleVerDetalle(producto.id)}
+                            style={{ cursor: "pointer" }}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                                duration: 0.5,
+                                delay: index * 0.05,
+                            }}
+                            whileHover={{
+                                scale: 1.03,
+                                boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+                                y: -5,
+                            }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            <motion.img
+                                src={producto.imagen}
+                                alt={producto.nombre}
+                                className="producto-imagen"
+                                whileHover={{ scale: 1.1 }}
+                                transition={{ duration: 0.3 }}
+                            />
+                            <div className="producto-contenido">
+                                <h3 className="producto-nombre">{producto.nombre}</h3>
+                                <p className="producto-categoria">{producto.categoria}</p>
+                                <p className="producto-descripcion">{producto.descripcion}</p>
+
+                                <p className="producto-precio">
+                                    ${producto.precio.toLocaleString("es-CO")}
+                                </p>
+
+                                {/* 🔥 Mostrar el stock restante teniendo en cuenta el carrito */}
+                                <p className="producto-descripcion">
+                                    Stock disponible:{" "}
+                                    <strong style={{ color: stockRestante <= 0 ? "red" : "green" }}>
+                                        {stockRestante}
+                                    </strong>
+                                </p>
+
+                                <motion.button
+                                    className="btn-agregar-carrito"
+                                    onClick={(e) => handleAgregarCarrito(e, producto)}
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    disabled={stockRestante <= 0}
+                                    style={{
+                                        opacity: stockRestante <= 0 ? 0.5 : 1,
+                                        cursor: stockRestante <= 0 ? "not-allowed" : "pointer",
+                                    }}
+                                >
+                                    {stockRestante <= 0 ? "Agotado" : "🛒 Agregar al carrito"}
+                                </motion.button>
+                            </div>
+                        </motion.div>
+                    );
+                })}
             </motion.div>
         </div>
     );
