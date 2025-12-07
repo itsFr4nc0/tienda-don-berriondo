@@ -11,7 +11,6 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import ProductDetail from "./pages/ProductDetail";
-
 import "./assets/styles/global.css";
 
 import OpinionesClientes from "./components/OpinionesClientes";
@@ -33,40 +32,40 @@ const App: React.FC = () => {
     location.pathname === "/register" ||
     location.pathname.startsWith("/producto/");
 
-  return (
-    <div className="app-container">
+    return (
+        <div className="app-container">
 
-      {/* PANEL ADMIN FIJO ARRIBA */}
-      {isAdmin && <AdminPanel />}
+            {/* PANEL ADMIN FIJO ARRIBA */}
+            {isAdmin && <AdminPanel />}
 
-      {!hideLayout && <Header />}
+            {!hideLayout && <Header />}
 
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
+            <AnimatePresence mode="wait">
+                <Routes location={location} key={location.pathname}>
 
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/producto/:id" element={<ProductDetail />} />
-
-          
-        </Routes>
-      </AnimatePresence>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/producto/:id" element={<ProductDetail />} />
 
 
-      {!hideLayout && (
-        <>
-          <Productos />
-          <OpinionesClientes />
+                </Routes>
+            </AnimatePresence>
 
-          <Footer />
-          <ChatbotButton />
-        </>
-      )}
 
-      <ToastContainer />
-    </div>
-  );
+            {!hideLayout && (
+                <>
+                    <Productos />
+                    <OpinionesClientes />
+
+                    <Footer />
+                    <ChatbotButton />
+                </>
+            )}
+
+            <ToastContainer />
+        </div>
+    );
 };
 
 export default App;

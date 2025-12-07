@@ -3,13 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { useCart } from "../context/CartContext";
+import { ReviewButton } from "../components/ReviewButton";
 import type { Producto, ItemCarrito } from "../context/CartContext";
 import "./ProductDetail.css";
 
 const ProductDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { agregarAlCarrito, items } = useCart(); // usar items desde el contexto
+    const { agregarAlCarrito, items } = useCart();
 
     const [cantidad, setCantidad] = useState(1);
     const [producto, setProducto] = useState<Producto | null>(null);
@@ -52,12 +53,10 @@ const ProductDetail: React.FC = () => {
         );
     }
 
-    // calcular cuánto del producto ya está en el carrito
     const enCarrito = items.find((i: ItemCarrito) => i.id === producto.id);
     const cantidadEnCarrito = enCarrito ? enCarrito.cantidad : 0;
     const stockRestante = producto.stock - cantidadEnCarrito;
 
-    // manejar agregar al carrito y actualizar stock en la UI
     const handleAgregarCarrito = () => {
         if (!producto) return;
 
@@ -72,28 +71,19 @@ const ProductDetail: React.FC = () => {
             return;
         }
 
-        // Agregar la cantidad seleccionada
         for (let i = 0; i < cantidad; i++) {
             agregarAlCarrito(producto);
         }
-
-        // // Actualizar stock mostrado localmente
-        // setProducto((prev) => {
-        //     if (!prev) return prev;
-        //     return { ...prev, stock: prev.stock - cantidad };
-        // });
 
         toast.success(`✅ ${cantidad}x ${producto.nombre} agregado(s) al carrito`, {
             position: "top-right",
             autoClose: 2500,
         });
 
-        // opcional: reset cantidad a 1
         setCantidad(1);
     };
 
     const aumentarCantidad = () => {
-        // considerar lo que ya está en carrito
         if (cantidad + cantidadEnCarrito >= producto.stock) {
             toast.warn("No puedes agregar más, stock máximo alcanzado.", { position: "top-right" });
             setCantidad(producto.stock - cantidadEnCarrito);
@@ -187,7 +177,6 @@ const ProductDetail: React.FC = () => {
                             <span className="product-price-note">COP</span>
                         </motion.div>
 
-                        {/* Stock mostrado considerando lo que ya hay en carrito */}
                         <motion.p className="product-description-full" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                             Stock disponible: <strong>{Math.max(0, producto.stock - cantidadEnCarrito)}</strong>
                         </motion.p>
@@ -227,6 +216,12 @@ const ProductDetail: React.FC = () => {
                             >
                                 {producto.stock - cantidadEnCarrito <= 0 ? "Agotado" : "🛒 Agregar al carrito"}
                             </motion.button>
+
+                            {/* BOTÓN DE OPINIONES */}
+                            <ReviewButton
+                                productId={producto.id}
+                                productName={producto.nombre}
+                            />
                         </motion.div>
 
                         <motion.div className="product-extra-info" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
