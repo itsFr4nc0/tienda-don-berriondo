@@ -5,10 +5,11 @@ import type { ReactNode } from 'react';
 export interface Producto {
     id: number;
     nombre: string;
-    precio: number; // precio como número (ej: 3200000)
+    precio: number;
     imagen: string;
     descripcion?: string;
     categoria?: string;
+    stock: number; // ← AGREGADO
 }
 
 // Interfaz para el item del carrito (producto + cantidad)
@@ -41,14 +42,20 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const itemExistente = prevItems.find((item) => item.id === producto.id);
 
             if (itemExistente) {
-                // Si ya existe, incrementar cantidad
+                // No dejar pasar el stock
+                if (itemExistente.cantidad >= itemExistente.stock) {
+                    return prevItems; // No agregar más
+                }
+
                 return prevItems.map((item) =>
                     item.id === producto.id
                         ? { ...item, cantidad: item.cantidad + 1 }
                         : item
                 );
             } else {
-                // Si no existe, agregarlo con cantidad 1
+                // Agregarlo si hay stock disponible
+                if (producto.stock <= 0) return prevItems;
+
                 return [...prevItems, { ...producto, cantidad: 1 }];
             }
         });
@@ -59,16 +66,20 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
     };
 
-    // Incrementar cantidad
+    // Incrementar cantidad respetando el stock
     const incrementarCantidad = (id: number) => {
         setItems((prevItems) =>
             prevItems.map((item) =>
-                item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+                item.id === id
+                    ? item.cantidad < item.stock
+                        ? { ...item, cantidad: item.cantidad + 1 }
+                        : item
+                    : item
             )
         );
     };
 
-    // Decrementar cantidad
+    // Decrementar cantidad (solo si es > 1)
     const decrementarCantidad = (id: number) => {
         setItems((prevItems) =>
             prevItems.map((item) =>
@@ -109,7 +120,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 };
 
 // Hook personalizado para usar el carrito
-// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
     const context = useContext(CartContext);
     if (context === undefined) {
