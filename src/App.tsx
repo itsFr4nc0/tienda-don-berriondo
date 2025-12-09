@@ -25,7 +25,11 @@ const App: React.FC = () => {
   const location = useLocation();
 
   const loggedUser = JSON.parse(localStorage.getItem("loggedUser") || "null");
+
   const isAdmin = loggedUser?.role === "admin";
+  const isLogged = !!loggedUser?.token;
+
+
 
   const hideLayout =
     location.pathname === "/login" || 
