@@ -11,6 +11,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import ProductDetail from "./pages/ProductDetail";
+import ProductDetailEdit from "./pages/ProductDetailEdit.tsx";
 import "./assets/styles/global.css";
 
 import OpinionesClientes from "./components/OpinionesClientes";
@@ -34,7 +35,8 @@ const App: React.FC = () => {
   const hideLayout =
     location.pathname === "/login" || 
     location.pathname === "/register" ||
-    location.pathname.startsWith("/producto/");
+    location.pathname.startsWith("/producto/") ||
+    location.pathname.startsWith("/admin/editar-producto/"); // ← AÑADIDO
 
     return (
         <div className="app-container">
@@ -51,7 +53,7 @@ const App: React.FC = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/producto/:id" element={<ProductDetail />} />
-
+                    <Route path="/admin/editar-producto/:id" element={<ProductDetailEdit />} /> {/* ← NUEVA RUTA */}
 
                 </Routes>
             </AnimatePresence>
