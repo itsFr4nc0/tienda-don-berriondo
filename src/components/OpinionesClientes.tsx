@@ -6,31 +6,50 @@ interface Opinion {
     nombre: string;
     comentario: string;
     estrellas: number;
-    producto: string;
+    producto?: string;
+    productId: number;
     fecha: string;
+}
+
+interface Product {
+    id: number;
+    nombre: string;
 }
 
 const OpinionesClientes: React.FC = () => {
     const [opiniones, setOpiniones] = useState<Opinion[]>([]);
+    const [productos, setProductos] = useState<Product[]>([]);
     const [indiceActual, setIndiceActual] = useState(0);
-    const [cargando, setCargando] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchOpinions();
+        fetchData();
     }, []);
 
-    const fetchOpinions = async () => {
+    const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/opinions');
-            if (response.ok) {
-                const data = await response.json();
-                setOpiniones(data);
+            const [opinionesRes, productosRes] = await Promise.all([
+                fetch('http://localhost:4000/api/opinions'),
+                fetch('http://localhost:4000/api/products')
+            ]);
+
+            if (opinionesRes.ok && productosRes.ok) {
+                const opinionesData = await opinionesRes.json();
+                const productosData = await productosRes.json();
+
+                setOpiniones(opinionesData);
+                setProductos(productosData);
             }
         } catch (error) {
-            console.error('Error al cargar opiniones:', error);
+            console.error('Error al cargar datos:', error);
         } finally {
-            setCargando(false);
+            setLoading(false);
         }
+    };
+
+    const getProductName = (productId: number): string => {
+        const product = productos.find(p => p.id === productId);
+        return product?.nombre || 'Producto';
     };
 
     const anteriorOpinion = () => {
@@ -49,10 +68,10 @@ const OpinionesClientes: React.FC = () => {
         return '⭐'.repeat(cantidad);
     };
 
-    if (cargando) {
+    if (loading) {
         return (
             <div className="opiniones-banda">
-                <h2 className="opiniones-titulo">Cargando...</h2>
+                <h2 className="opiniones-titulo">Cargando opiniones...</h2>
             </div>
         );
     }
@@ -72,7 +91,6 @@ const OpinionesClientes: React.FC = () => {
             <h2 className="opiniones-titulo">
                 Lo que comentan nuestros compradores avispados
             </h2>
-
             <div className="opiniones-wrapper">
                 <button
                     className="flecha flecha-izquierda"
@@ -85,7 +103,7 @@ const OpinionesClientes: React.FC = () => {
                 <div className="opiniones-container">
                     <div className="opinion-card" key={indiceActual}>
                         <div className="producto-nombre">
-                            {opiniones[indiceActual].producto}
+                            {getProductName(opiniones[indiceActual].productId)}
                         </div>
                         <div className="estrellas">
                             {renderEstrellas(opiniones[indiceActual].estrellas)}
