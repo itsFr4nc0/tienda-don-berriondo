@@ -40,12 +40,16 @@ export const Login: React.FC = () => {
             });
 
             // ✅ GUARDAR TOKEN DENTRO DEL OBJETO loggedUser
+            // localStorage.setItem("token", data.token);
+            // localStorage.setItem("user", JSON.stringify(data.user));
             const userWithToken = {
                 ...data.user,
-                token: data.token  // ← AGREGAR EL TOKEN AQUÍ
+                token: data.token
             };
 
             localStorage.setItem("loggedUser", JSON.stringify(userWithToken));
+
+
 
             if (data.user.role === "admin") {
                 toast.success(`Bienvenido Administrador ${data.user.name}`, {
